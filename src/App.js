@@ -1,7 +1,7 @@
 import './App.css';
 import {CSVLink} from "react-csv";
 import names from './names.json';
-import {useState} from 'react'; 
+import {useState} from 'react';
 
 
 function App() {
@@ -18,6 +18,22 @@ function App() {
     setFilteredResults(filteredNames)
   } else {setFilteredResults(names)}
   }
+
+  //////////////// SORTING //////////////////////
+  const [data, setData] = useState(names);
+  const [sort, setSort] = useState("ASC");
+  const sorting = (col)=>{
+    if (sort==="ASC"){
+      const sorted = [...data].sort((a,b)=> a[col].toLowerCase() > b[col].toLowerCase() ? 1 : -1);
+      setData(sorted);
+      setSort("DESC");
+    }
+    else if(sort==="DESC"){
+      const sorted = [...data].sort((a,b)=> a[col].toLowerCase() < b[col].toLowerCase() ? 1 : -1);
+      setData(sorted);
+      setSort("ASC");
+    }
+  }
   //////////////////////////////////////////////
   return (
     <>
@@ -30,8 +46,8 @@ function App() {
       <table>
         <thead>
         <tr>
-          <th><button>Name</button></th>
-          <th><button>Age</button></th>
+          <th><button onClick={()=>sorting()}>Name</button></th>
+          <th><button onClick={()=>sorting()}>Age</button></th>
           <th>Gender</th>
         </tr>
         </thead>
@@ -65,7 +81,7 @@ function App() {
       className="span-csv"
       filename='ReactTable.csv'
       onClick={(event)=> alert("Csv File Downloaded Successfully")}>
-      Download Result
+      Download Results
       </CSVLink>
     </div>
     </>
