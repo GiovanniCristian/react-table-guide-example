@@ -2,6 +2,7 @@ import './App.css';
 import {CSVLink} from "react-csv";
 import names from './names.json';
 import {useState} from 'react';
+import Pagination from './Pagination.js';
 
 
 function App() {
@@ -62,8 +63,18 @@ function App() {
     setSort( order => ( order === 'ASC' ? 'DESC' : 'ASC' ) );
   }
   //////////////////////////////////////////////
+
+  //////////////////// PAGINATION /////////////////////////
+  const [currentPage, setCurrentPage] =useState(1);
+  const postsPerPage = 5;
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+
+  //////////////////////////////////////////////
+
   return (
-    <>
+  <>
       <input
       type='text'
       className='input'
@@ -81,7 +92,7 @@ function App() {
         </thead>
         <tbody>
           {/* Ora è sufficiente un solo loop. */}
-          {displayedData.map((val , key)=> (
+          {displayedData.slice(firstPostIndex, lastPostIndex).map((val , key)=> (
             <tr key={key}>
               <td>{val.name}</td>
               <td>{val.age}</td>
@@ -90,7 +101,7 @@ function App() {
           ))}
         </tbody>
       </table>
-    <div>
+    <div className='download-pagination'>
       <CSVLink
       // Assegnato il nuovo array all'attr. 'data'.
       data={displayedData}
@@ -104,7 +115,12 @@ function App() {
       Download Results
       </CSVLink>
     </div>
-    </>
+      <Pagination
+        totalPosts={names.lenght}
+        postsPerPage={postsPerPage}
+        setCurrentPage={setCurrentPage}
+      />
+  </>
   );
 }
 

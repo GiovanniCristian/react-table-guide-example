@@ -52,3 +52,31 @@ div {
             }
     }
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    cursor: pointer;
+  }
+  
+  .pagination a {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #9c53c8;
+    color: #6e56cb;
+  }
+  
+  .pagination__link {
+    font-weight: bold;
+  }
+  
+  .pagination__link--active a {
+    color: white;
+    background: #6e56cb;
+  }
+  
+  .pagination__link--disabled a {
+    color: rgb(250,250,250);
+    border: 1px solid #6d56cb62;
+  }
