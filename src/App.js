@@ -114,12 +114,13 @@ function App() {
       >
       Download Results
       </CSVLink>
-    </div>
       <Pagination
-        totalPosts={names.lenght}
+        totalPosts={names.length}
         postsPerPage={postsPerPage}
-        setCurrentPage={setCurrentPage}
+        onButtonClick={( pageNum ) => setCurrentPage( pageNum )}
+        className="pagination"
       />
+    </div>
   </>
   );
 }
